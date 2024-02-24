@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map/src/layer/tile_layer/placeholder/tile_placeholder.dart';
 
 /// The widget for a single tile used for the [TileLayer].
 @immutable
@@ -18,6 +19,9 @@ class Tile extends StatefulWidget {
 
   final Point<double> currentPixelOrigin;
 
+  ///A placeholder widget to be shown while the tile is loading
+  final Widget? placeHolder;
+
   /// Creates a new instance of [Tile].
   const Tile({
     super.key,
@@ -25,6 +29,7 @@ class Tile extends StatefulWidget {
     required this.currentPixelOrigin,
     required this.tileImage,
     required this.tileBuilder,
+    this.placeHolder,
   });
 
   @override
@@ -48,8 +53,11 @@ class _TileState extends State<Tile> {
     if (mounted) setState(() {});
   }
 
+
   @override
   Widget build(BuildContext context) {
+     //Add postFrameCallback
+
     return Positioned(
       left: widget.tileImage.coordinates.x * widget.scaledTileSize -
           widget.currentPixelOrigin.x,
@@ -57,13 +65,15 @@ class _TileState extends State<Tile> {
           widget.currentPixelOrigin.y,
       width: widget.scaledTileSize,
       height: widget.scaledTileSize,
-      child: widget.tileBuilder?.call(context, _tileImage, widget.tileImage) ??
-          _tileImage,
+      child: widget.tileBuilder?.call(context, _tileImage, widget.tileImage) ?? _tileImage,
     );
   }
 
+ 
+
   Widget get _tileImage {
     if (widget.tileImage.loadError && widget.tileImage.errorImage != null) {
+      print('Tile load error: ${widget.tileImage.errorImage}');
       return Image(
         image: widget.tileImage.errorImage!,
         opacity: widget.tileImage.opacity == 1
@@ -71,6 +81,7 @@ class _TileState extends State<Tile> {
             : AlwaysStoppedAnimation(widget.tileImage.opacity),
       );
     } else if (widget.tileImage.animation == null) {
+      print('Tile image animation null: ${widget.tileImage.imageInfo?.image}');
       return RawImage(
         image: widget.tileImage.imageInfo?.image,
         fit: BoxFit.fill,
@@ -78,8 +89,11 @@ class _TileState extends State<Tile> {
             ? null
             : AlwaysStoppedAnimation(widget.tileImage.opacity),
       );
-    } else {
-      return AnimatedBuilder(
+    } 
+    else{
+      print('Tile image: ${widget.tileImage.imageInfo?.image}');
+      return 
+      AnimatedBuilder(
         animation: widget.tileImage.animation!,
         builder: (context, child) => RawImage(
           image: widget.tileImage.imageInfo?.image,

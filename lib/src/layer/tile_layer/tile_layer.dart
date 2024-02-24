@@ -5,6 +5,7 @@ import 'package:collection/collection.dart' show MapEquality;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map/src/layer/tile_layer/placeholder/tile_placeholder.dart';
 import 'package:flutter_map/src/layer/tile_layer/tile.dart';
 import 'package:flutter_map/src/layer/tile_layer/tile_bounds/tile_bounds.dart';
 import 'package:flutter_map/src/layer/tile_layer/tile_bounds/tile_bounds_at_zoom.dart';
@@ -551,6 +552,7 @@ class _TileLayerState extends State<TileLayer> with TickerProviderStateMixin {
               ),
               currentPixelOrigin: map.pixelOrigin,
               tileImage: tileImage,
+              placeHolder: tileImage.imageInfo == null ? TilePlaceholder() : null,
               tileBuilder: widget.tileBuilder,
             ))
         .toList();
