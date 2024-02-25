@@ -210,7 +210,7 @@ class TileLayer extends StatefulWidget {
   final TileUpdateTransformer tileUpdateTransformer;
 
   /// Defines the minimum delay time from last map event before the tile layers are updated.
-  /// 
+  ///
   /// 16ms could be a good starting point for most applications. This at 60fps this will wait one frame after the last event.
   ///
   /// This delay acts as a debounce period to prevent frequent reloading of tile layers in response to rapid, successive events (e.g., zooming or panning).
@@ -218,7 +218,7 @@ class TileLayer extends StatefulWidget {
   /// By setting this delay, we ensure that map layer updates are performed only after a period of inactivity, enhancing performance and user experience on lower performance devices.
   ///
   /// - If multiple events occur within this delay period, only the last event triggers the tile layer update, reducing unnecessary processing and network requests.
-  /// 
+  ///
   /// - If the [loadingDelay] is `null`, the tile layers will update as soon as possible.
   final Duration? loadingDelay;
 
@@ -362,9 +362,7 @@ class _TileLayerState extends State<TileLayer> with TickerProviderStateMixin {
     _loadAndPruneInVisibleBounds(MapCamera.of(context));
   });
 
-  
-
-/// Delay Timer for loadingDelay
+  /// Delay Timer for loadingDelay
   Timer? _delayTimer;
 
   /// This method is used to delay the execution of a function by the specified [loadingDelay].
@@ -374,7 +372,7 @@ class _TileLayerState extends State<TileLayer> with TickerProviderStateMixin {
     if (widget.loadingDelay == null) {
       action();
       return;
-    } 
+    }
 
     // Cancel the previous timer if it is still active
     if (_delayTimer?.isActive ?? false) {
@@ -552,7 +550,7 @@ class _TileLayerState extends State<TileLayer> with TickerProviderStateMixin {
               ),
               currentPixelOrigin: map.pixelOrigin,
               tileImage: tileImage,
-              placeHolder: tileImage.imageInfo == null ? TilePlaceholder() : null,
+              placeholder: !tileImage.readyToDisplay ? const TilePlaceholder() : null,
               tileBuilder: widget.tileBuilder,
             ))
         .toList();

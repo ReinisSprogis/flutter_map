@@ -38,9 +38,9 @@ void _drawGrid(Canvas canvas, Size size) {
   }
 
   @override
-  bool shouldRepaint(TilePlaceholderPainter oldPainter) {
-    return oldPainter.color != color
-        || oldPainter.strokeWidth != strokeWidth;
+  bool shouldRepaint(TilePlaceholderPainter oldDelegate) {
+    return oldDelegate.color != color
+        || oldDelegate.strokeWidth != strokeWidth;
   }
 
   @override
