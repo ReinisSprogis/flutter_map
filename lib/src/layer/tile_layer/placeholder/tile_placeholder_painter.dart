@@ -12,7 +12,7 @@ class TilePlaceholderPainter extends CustomPainter {
 
 void _drawGrid(Canvas canvas, Size size) {
     final Paint paint = Paint()
-      ..color = color.withOpacity(0.5)
+      ..color = color.withOpacity(0.1)
       ..style = PaintingStyle.stroke
       ..strokeWidth = strokeWidth;
    for (double i = 0; i <= size.width; i += size.width / 9) {
