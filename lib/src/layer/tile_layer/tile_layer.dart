@@ -231,7 +231,9 @@ class TileLayer extends StatefulWidget {
   /// If `true`, a placeholder grid will be shown on the tiles that are loading.
   /// It helps with indication of the tile loading process and in case when no tiles are loaded can indicate that app is responsive rather than see a blank gay screen.
   /// If `false`, no placeholder grid will be shown.
+  /// 
   /// If `true` and [placeholder] is not set, a default grid will be shown.
+  /// 
   /// If `true` and [placeholder] is set, the [placeholder] will be shown instead.
   final bool showPlaceholder;
 
