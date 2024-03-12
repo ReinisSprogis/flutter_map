@@ -82,7 +82,7 @@ class _TileState extends State<Tile> {
             ? null
             : AlwaysStoppedAnimation(widget.tileImage.opacity),
       );
-    } else if (widget.tileImage.imageInfo == null) {
+    } else if (widget.tileImage.imageInfo == null && widget.placeholder != null) {
       return widget.placeholder!;
     } else {
       return AnimatedBuilder(
