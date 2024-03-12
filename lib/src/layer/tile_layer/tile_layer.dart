@@ -228,6 +228,10 @@ class TileLayer extends StatefulWidget {
   /// disabled and the tile layer will update as soon as possible.
   final Duration loadingDelay;
 
+  /// If `true`, a placeholder grid will be shown on the tiles that are loading.
+  /// It helps with indication of the tile loading process and in case when no tiles are loaded can indicate that app is responsive rather than see a blank gay screen.
+  final bool showPlaceholderGrid;
+
   /// Create a new [TileLayer] for the [FlutterMap] widget.
   TileLayer({
     super.key,
@@ -261,6 +265,7 @@ class TileLayer extends StatefulWidget {
     this.tileBounds,
     this.loadingDelay = Duration.zero,
     TileUpdateTransformer? tileUpdateTransformer,
+    this.showPlaceholderGrid = false,
     String userAgentPackageName = 'unknown',
   })  : assert(
           tileDisplay.when(
@@ -554,7 +559,7 @@ class _TileLayerState extends State<TileLayer> with TickerProviderStateMixin {
               ),
               currentPixelOrigin: map.pixelOrigin,
               tileImage: tileImage,
-              placeholder: const TilePlaceholder(),
+              placeholder: widget.showPlaceholderGrid ? const TilePlaceholder() : null,
               tileBuilder: widget.tileBuilder,
             ))
         .toList();
