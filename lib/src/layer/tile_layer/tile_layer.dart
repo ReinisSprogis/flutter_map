@@ -233,12 +233,12 @@ class TileLayer extends StatefulWidget {
   /// If `false`, no placeholder grid will be shown.
   /// If `true` and [placeholder] is not set, a default grid will be shown.
   /// If `true` and [placeholder] is set, the [placeholder] will be shown instead.
-  final bool showPlaceholderGrid;
+  final bool showPlaceholder;
 
   ///An optional widget to be shown while the tile is loading
-  ///[showPlaceholderGrid] should be set to true, to see the placeholder.
-  ///If [showPlaceholderGrid] is set to false, this widget will not be shown.
-  ///If the [showPlaceholderGrid] is set to true and this widget is not set, a default grid will be shown.
+  ///[showPlaceholder] should be set to true, to see the placeholder.
+  ///If [showPlaceholder] is set to false, this widget will not be shown.
+  ///If the [showPlaceholder] is set to true and this widget is not set, a default grid will be shown.
   final Widget? placeholder;
 
   /// Create a new [TileLayer] for the [FlutterMap] widget.
@@ -274,7 +274,7 @@ class TileLayer extends StatefulWidget {
     this.tileBounds,
     this.loadingDelay = Duration.zero,
     TileUpdateTransformer? tileUpdateTransformer,
-    this.showPlaceholderGrid = false,
+    this.showPlaceholder = false,
     this.placeholder,
     String userAgentPackageName = 'unknown',
   })  : assert(
@@ -569,7 +569,7 @@ class _TileLayerState extends State<TileLayer> with TickerProviderStateMixin {
               ),
               currentPixelOrigin: map.pixelOrigin,
               tileImage: tileImage,
-              placeholder: widget.showPlaceholderGrid ? widget.placeholder ?? const TilePlaceholder() : null,
+              placeholder: widget.showPlaceholder ? widget.placeholder ?? const TilePlaceholder() : null,
               tileBuilder: widget.tileBuilder,
             ))
         .toList();
